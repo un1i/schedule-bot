@@ -24,6 +24,9 @@ def get_schedule(group_id, start, finish):
 
 
 def print_schedule(schedule):
+    if len(schedule) == 0:
+        text = "Пар нет"
+        return text
     text = ''
     for item in schedule:
         text += item['discipline'] + '\n' + item['beginLesson'] + '-' + item['endLesson'] + '\n' + item['auditorium']
