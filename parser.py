@@ -13,6 +13,8 @@ headers = {
 def get_group_id(group_name):
     url = f'https://portal.unn.ru/ruzapi/search?term={group_name}&type=group'
     inf = requests.get(url=url, headers=headers)
+    if len(inf.json()) > 1 or len(inf.json() == 0):
+        return None
     group_id = inf.json()[0]['id']
     return group_id
 
