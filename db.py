@@ -38,11 +38,13 @@ def get_user_group(conn, telegram_id):
     c.execute('SELECT group_id FROM users WHERE telegram_id = ?', (telegram_id,))
     return c.fetchone()[0]
 
+
 @ensure_connection
 def edit_user_group(conn, telegram_id, group_id):
     c = conn.cursor()
     c.execute('UPDATE users SET group_id = ? WHERE telegram_id = ?', (group_id, telegram_id))
     conn.commit()
+
 
 @ensure_connection
 def check_exists_user(conn, telegram_id):

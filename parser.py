@@ -1,5 +1,6 @@
 import json
 import requests
+from date import string_date
 
 headers = {
     "Accept": "application/json, text/plain, */*",
@@ -26,13 +27,15 @@ def get_schedule(group_id, start, finish):
 
 
 def print_schedule(schedule):
-    if len(schedule) == 0:
+    size = len(schedule)
+    if size == 0:
         text = "Пар нет"
         return text
     text = ''
-    for item in schedule:
-        text += item['discipline'] + '\n' + item['beginLesson'] + '-' + item['endLesson'] + '\n' + item['auditorium']
-        text += '\n' + item['lecturer']
-        text += '\n\n' + '/'*20 + '\n\n'
+    for i in range(0, size):
+        if i == 0 or schedule[i - 1]["date"] != schedule[i]["date"]:
+            text = string_date(schedule[i]['date'], schedule[i]["dayOfWeekString"]) + '\n'
+        text += schedule[i]['discipline'] + '\n' + schedule[i]['kindOfWork'] + '\n' + schedule[i]['beginLesson'] + '-'\
+                + schedule[i]['endLesson'] + '\n' + schedule[i]['auditorium'] + " (" + schedule[i]["building"] + ")" \
+                + '\n' + schedule[i]['lecturer'] + '\n\n' + '/' * 20 + '\n\n'
     return text
-

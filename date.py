@@ -41,3 +41,11 @@ def date_addition(date):
     new_date = date + str(year)
     return new_date
 
+
+def string_date(date, day_of_week):
+    months = ["января", "февраля", "марта", "апреля", "мая", "июня", "июля", "августа", "сентября", "октября",
+              "ноября", "декабря"]
+    date_sep = date.split('.')
+    month = int(date_sep[1]) - 1
+    day = int(date_sep[2])
+    return f"[{day} {months[month]}] {day_of_week}"
