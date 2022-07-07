@@ -1,6 +1,6 @@
-import json
 import requests
 from date import string_date
+from cache import timed_lru_cache
 
 headers = {
     "Accept": "application/json, text/plain, */*",
@@ -14,12 +14,13 @@ headers = {
 def get_group_id(group_name):
     url = f'https://portal.unn.ru/ruzapi/search?term={group_name}&type=group'
     inf = requests.get(url=url, headers=headers)
-    if len(inf.json()) > 1 or len(inf.json() == 0):
+    if len(inf.json()) > 1 or len(inf.json()) == 0:
         return None
     group_id = inf.json()[0]['id']
     return group_id
 
 
+@timed_lru_cache(1800)
 def get_schedule(group_id, start, finish):
     url = f'https://portal.unn.ru/ruzapi/schedule/group/{group_id}?start={start}&finish={finish}&lng=1'  # 2022.06.27
     inf = requests.get(url=url, headers=headers)

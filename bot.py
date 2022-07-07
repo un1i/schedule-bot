@@ -76,7 +76,6 @@ def telegram_bot():
                     date1 = date2 = reverse_date(date)
                 else:
                     bot.send_message(message.chat.id, "Некорректная дата")
-
             schedule = get_schedule(group_id, date1, date2)
             bot.send_message(message.chat.id, print_schedule(schedule))
         except Exception as ex:
